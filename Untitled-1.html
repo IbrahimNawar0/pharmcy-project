@@ -1,0 +1,76 @@
+<style>
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.add-to-cart {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.cart {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Payment Gateway with Cart</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Details</h1>
+        <div class="product">
+            <img src="product-image.jpg" alt="Product Image">
+            <h2>Product Name</h2>
+            <p>Description of the product.</p>
+            <p>Price: $19.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <h1>Shopping Cart</h1>
+        <div class="cart">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const cartContainer = document.querySelector('.cart');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productDetails = this.parentNode.textContent.trim().split('\n');
+                    const productName = productDetails[1];
+                    const productPrice = parseFloat(productDetails[3].replace('$', ''));
+
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <span>${productName}</span>
+                        <span>$${productPrice.toFixed(2)}</span>
+                    `;
+
+                    cartContainer.appendChild(cartItem);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
